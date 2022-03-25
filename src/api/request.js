@@ -3,18 +3,17 @@
  * @Author: superman
  * @Date: 2022-03-16 19:58:02
  * @LastEditors: superman
- * @LastEditTime: 2022-03-18 01:20:53
+ * @LastEditTime: 2022-03-25 22:48:00
  */
 
 import axios from "axios";
 
 
+// 引入进度条样式
+import "nprogress/nprogress.css";
 // 引入进度条
 import nprogress from "nprogress";
 // start - 进度条开始、、done - 进度条结束
-
-// 引入进度条样式
-import "nprogress/nprogress.css";
 
 
 // 创建 axios 实例，并做一些基础配置

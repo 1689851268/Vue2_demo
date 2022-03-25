@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:19
  * @LastEditors: superman
- * @LastEditTime: 2022-03-22 23:55:14
+ * @LastEditTime: 2022-03-25 22:43:47
 -->
 # combat
 
@@ -187,3 +187,16 @@ mock 数据，是一些模拟数据，不会真的发送请求到服务器
 3. 将数据存储到 Vuex
 4. 获取 Vuex 中的数据，动态展示数据
 
+
+
+
+
+# Vue 的滚动行为
+设置滚动行为用 scrollBehavior
+```js
+// 滚动行为
+scrollBehavior(to, from, savedPosition) {
+    // { y: 0 } 表示滚动条在最上方
+    return { y: 0 }
+}
+```

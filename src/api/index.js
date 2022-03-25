@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-16 20:29:39
  * @LastEditors: superman
- * @LastEditTime: 2022-03-20 01:13:34
+ * @LastEditTime: 2022-03-25 22:49:48
  */
 
 import requests from "./request";
@@ -26,3 +26,10 @@ export const reqGetSearchInfo = (params = {}) => requests({
     method: "POST",
     data: params
 })
+
+
+// 商品详情信息的接口  URL: /api/item/{skuId}    GET
+export const reGoodsInfo = (skuId => requests({
+    url: `/item/${skuId}`,
+    method: "GET"
+}));
