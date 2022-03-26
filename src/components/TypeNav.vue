@@ -1,3 +1,11 @@
+<!--
+ * @Description: 三级联动标题
+ * @Author: superman
+ * @Date: 2022-03-26 10:12:24
+ * @LastEditors: superman
+ * @LastEditTime: 2022-03-26 10:42:18
+-->
+
 <template>
     <div class="type-nav">
         <div class="container">
@@ -16,9 +24,7 @@
                                 :class="{ cur: currentIndex == index }"
                             >
                                 <h3 @mouseenter="changeIndex(index)">
-                                    <a :data-category1Id="c1.categoryId">
-                                        {{ c1.categoryName }}
-                                    </a>
+                                    <a :data-category1Id="c1.categoryId">{{ c1.categoryName }}</a>
                                 </h3>
                                 <!-- vue 实现 hover 显示效果 -->
                                 <div
@@ -42,9 +48,7 @@
                                                     :data-category2Id="
                                                         c2.categoryId
                                                     "
-                                                >
-                                                    {{ c2.categoryName }}
-                                                </a>
+                                                >{{ c2.categoryName }}</a>
                                             </dt>
                                             <dd>
                                                 <!-- 三级标题 -->
@@ -56,9 +60,7 @@
                                                         :data-category3Id="
                                                             c3.categoryId
                                                         "
-                                                    >
-                                                        {{ c3.categoryName }}
-                                                    </a>
+                                                    >{{ c3.categoryName }}</a>
                                                 </em>
                                             </dd>
                                         </dl>
@@ -94,12 +96,12 @@ export default {
     data() {
         return {
             currentIndex: -1,
-            show: true,
+            show: true
         };
     },
     methods: {
         // 鼠标移入标题（通过 lodash 的 throttle 设置节流）
-        changeIndex: throttle(function (index) {
+        changeIndex: throttle(function(index) {
             this.currentIndex = index;
         }, 50),
         // 鼠标移出标题
@@ -140,15 +142,15 @@ export default {
             if (this.$route.path != "/home") {
                 this.show = true;
             }
-        },
+        }
     },
     computed: {
         ...mapState({
-            categoryList: (state) => {
+            categoryList: state => {
                 state.home.categoryList = state.home.categoryList.splice(0, 16);
                 return state.home.categoryList;
-            },
-        }),
+            }
+        })
     },
     // 组件挂载完后，向服务器发请求
     mounted() {
@@ -156,7 +158,7 @@ export default {
         if (this.$route.path != "/home") {
             this.show = false;
         }
-    },
+    }
 };
 </script>
 

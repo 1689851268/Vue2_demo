@@ -1,9 +1,9 @@
 <!--
- * @Description: 
+ * @Description: 根组件
  * @Author: superman
  * @Date: 2022-03-14 13:58:09
  * @LastEditors: superman
- * @LastEditTime: 2022-03-19 19:37:32
+ * @LastEditTime: 2022-03-26 10:46:02
 -->
 
 <template>
@@ -24,12 +24,12 @@ export default {
     name: "App",
     components: {
         Header,
-        Footer,
+        Footer
     },
     mounted() {
         // 获取商品的三级列表数据
         this.$store.dispatch("home/categoryList");
-    },
+    }
 };
 </script>
 

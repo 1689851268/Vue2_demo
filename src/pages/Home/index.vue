@@ -1,9 +1,9 @@
 <!--
- * @Description: 
+ * @Description: 主页面
  * @Author: superman
  * @Date: 2022-03-14 19:32:12
  * @LastEditors: superman
- * @LastEditTime: 2022-03-19 18:11:35
+ * @LastEditTime: 2022-03-26 10:46:37
 -->
 <template>
     <div>
@@ -43,7 +43,7 @@ export default {
         Rank,
         Like,
         Floor,
-        Brand,
+        Brand
     },
     mounted() {
         // 获取 floor 组件的数据
@@ -51,8 +51,8 @@ export default {
     },
     computed: {
         ...mapState({
-            floorList: (state) => state.home.floorList,
-        }),
-    },
+            floorList: state => state.home.floorList
+        })
+    }
 };
 </script>

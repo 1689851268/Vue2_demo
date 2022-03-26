@@ -1,9 +1,9 @@
 /*
- * @Description: 
+ * @Description: 入口文件
  * @Author: superman
  * @Date: 2022-03-14 13:58:09
  * @LastEditors: superman
- * @LastEditTime: 2022-03-22 00:20:13
+ * @LastEditTime: 2022-03-26 10:45:55
  */
 
 import Vue from 'vue'

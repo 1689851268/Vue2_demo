@@ -1,6 +1,15 @@
+<!--
+ * @Description: 展示搜索结果
+ * @Author: superman
+ * @Date: 2022-03-26 10:12:24
+ * @LastEditors: superman
+ * @LastEditTime: 2022-03-26 11:00:17
+-->
+
 <template>
     <div>
         <TypeNav />
+
         <div class="main">
             <div class="py-container">
                 <!-- 面包屑 -->
@@ -63,6 +72,7 @@
                             </ul>
                         </div>
                     </div>
+
                     <!-- 产品列表 -->
                     <div class="goods-list">
                         <ul class="yui3-g">
@@ -113,12 +123,13 @@
                             </li>
                         </ul>
                     </div>
-                    <!-- 分页器 -->
+
+                    <!-- 分页器：<continues> 得是奇数 -->
                     <Pagination
                         :pageNo="searchParams.pageNo"
                         :pageSize="searchParams.pageSize"
                         :total="total"
-                        :continues="5"
+                        :continues="7"
                         @currentPage="getPageNo"
                     />
                 </div>
@@ -133,9 +144,7 @@ import SearchSelector from "./SearchSelector/SearchSelector";
 
 export default {
     name: "Search",
-    components: {
-        SearchSelector
-    },
+    components: { SearchSelector },
     data() {
         return {
             // 带给服务器的参数

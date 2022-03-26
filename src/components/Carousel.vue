@@ -1,18 +1,15 @@
 <!--
- * @Description: 
+ * @Description: 轮播图（使用 swiper）
  * @Author: superman
  * @Date: 2022-03-19 19:32:35
  * @LastEditors: superman
- * @LastEditTime: 2022-03-19 23:32:45
+ * @LastEditTime: 2022-03-26 10:44:03
 -->
+
 <template>
     <div class="swiper-container" ref="cur">
         <div class="swiper-wrapper">
-            <div
-                class="swiper-slide"
-                v-for="carousel in list"
-                :key="carousel.id"
-            >
+            <div class="swiper-slide" v-for="carousel in list" :key="carousel.id">
                 <img :src="carousel.imgUrl" />
             </div>
         </div>
@@ -41,20 +38,20 @@ export default {
                         // 如果需要分页器
                         pagination: {
                             el: ".swiper-pagination",
-                            clickable: true, // 分页器点击效果
+                            clickable: true // 分页器点击效果
                         },
 
                         // 如果需要前进后退按钮
                         navigation: {
                             nextEl: ".swiper-button-next",
-                            prevEl: ".swiper-button-prev",
-                        },
+                            prevEl: ".swiper-button-prev"
+                        }
                     });
                 });
             },
-            immediate: true, // 立即监听：不管数据有没有变化，watch 一上来就监听
-        },
-    },
+            immediate: true // 立即监听：不管数据有没有变化，watch 一上来就监听
+        }
+    }
 };
 </script>
 

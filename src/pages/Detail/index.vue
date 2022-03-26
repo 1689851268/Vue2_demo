@@ -1,3 +1,11 @@
+<!--
+ * @Description: 商品详情页
+ * @Author: superman
+ * @Date: 2022-03-26 10:12:24
+ * @LastEditors: superman
+ * @LastEditTime: 2022-03-26 10:46:22
+-->
+
 <template>
     <div class="detail">
         <!-- 商品分类导航 -->

@@ -1,3 +1,10 @@
+<!--
+ * @Description: 网页的 jio
+ * @Author: superman
+ * @Date: 2022-03-26 10:12:24
+ * @LastEditors: superman
+ * @LastEditTime: 2022-03-26 10:45:13
+-->
 <template>
     <div class="footer">
         <div class="footer-container">
@@ -106,7 +113,7 @@
 
 <script>
 export default {
-    name: "Footer",
+    name: "Footer"
 };
 </script>
 
