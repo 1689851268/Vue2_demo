@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-26 10:12:24
  * @LastEditors: superman
- * @LastEditTime: 2022-03-26 10:46:22
+ * @LastEditTime: 2022-03-26 18:49:58
 -->
 
 <template>
@@ -13,7 +13,7 @@
 
         <!-- 主要内容区域 -->
         <section class="con">
-            <!-- 导航路径区域 -->
+            <!-- 导航路径面包屑 -->
             <div class="conPoin">
                 <template v-for="i of 3">
                     <span
@@ -26,10 +26,10 @@
             <div class="mainCon">
                 <!-- 左侧放大镜区域 -->
                 <div class="previewWrap">
-                    <!--放大镜效果-->
-                    <Zoom />
+                    <!-- 放大镜：设置默认值 → skuImageList 为 []，其第 1 个元素为 {} -->
+                    <Zoom :skuImageList="skuInfo.skuImageList || [{}]" />
                     <!-- 小图列表 -->
-                    <ImageList />
+                    <ImageList :skuImageList="skuInfo.skuImageList || [{}]" />
                 </div>
                 <!-- 右侧选择区域布局 -->
                 <div class="InfoWrap">
@@ -72,33 +72,19 @@
                             </div>
                         </div>
                     </div>
-
+                    <!-- 选择商品属性 -->
                     <div class="choose">
                         <div class="chooseArea">
-                            <div class="choosed"></div>
-                            <dl>
-                                <dt class="title">选择颜色</dt>
-                                <dd changepirce="0" class="active">金色</dd>
-                                <dd changepirce="40">银色</dd>
-                                <dd changepirce="90">黑色</dd>
-                            </dl>
-                            <dl>
-                                <dt class="title">内存容量</dt>
-                                <dd changepirce="0" class="active">16G</dd>
-                                <dd changepirce="300">64G</dd>
-                                <dd changepirce="900">128G</dd>
-                                <dd changepirce="1300">256G</dd>
-                            </dl>
-                            <dl>
-                                <dt class="title">选择版本</dt>
-                                <dd changepirce="0" class="active">公开版</dd>
-                                <dd changepirce="-1000">移动版</dd>
-                            </dl>
-                            <dl>
-                                <dt class="title">购买方式</dt>
-                                <dd changepirce="0" class="active">官方标配</dd>
-                                <dd changepirce="-240">优惠移动版</dd>
-                                <dd changepirce="-390">电信优惠版</dd>
+                            <div class="chose"></div>
+                            <dl v-for="spuSaleAttr in spuSaleAttrList" :key="spuSaleAttr.id">
+                                <dt class="title">{{spuSaleAttr.saleAttrName}}</dt>
+                                <!-- class="active" 表示选中，高亮显示 -->
+                                <dd
+                                    v-for="spuSaleAttrValue in spuSaleAttr.spuSaleAttrValueList"
+                                    :key="spuSaleAttrValue.id"
+                                    :class="{active: spuSaleAttrValue.isChecked == 1}"
+                                    @click="changeActive(spuSaleAttrValue, spuSaleAttr.spuSaleAttrValueList)"
+                                >{{spuSaleAttrValue.saleAttrValueName}}</dd>
                             </dl>
                         </div>
                         <div class="cartWrap">
@@ -361,7 +347,18 @@ export default {
         this.$store.dispatch("detail/getGoodsInfo", this.$route.params.skuId);
     },
     computed: {
-        ...mapGetters("detail", ["categoryView", "skuInfo"])
+        ...mapGetters("detail", ["categoryView", "skuInfo", "spuSaleAttrList"])
+    },
+    methods: {
+        // 选择产品属性值，选中则高亮
+        changeActive(value, valueList) {
+            // 清除高亮
+            valueList.forEach(ele => {
+                ele.isChecked = 0;
+            });
+            // 设置新高亮
+            value.isChecked = 1;
+        }
     }
 };
 </script>
