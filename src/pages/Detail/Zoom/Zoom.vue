@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-26 10:12:24
  * @LastEditors: superman
- * @LastEditTime: 2022-03-26 19:29:23
+ * @LastEditTime: 2022-03-27 00:42:40
 -->
 <template>
     <div class="spec-preview">
@@ -42,7 +42,6 @@ export default {
     },
     methods: {
         handler(e) {
-            console.log(e);
             let mask = this.$refs.mask;
             /* 只读属性 MouseEvent.offsetX 规定了 [事件对象] 与 [目标节点] 的内填充边（padding edge）在 X 轴方向上的偏移量 */
             /* 只读属性 MouseEvent.offsetY 规定了 [事件对象] 与 [目标节点] 的内填充边（padding edge）在 Y 轴方向上的偏移量 */

@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-26 10:12:24
  * @LastEditors: superman
- * @LastEditTime: 2022-03-26 18:49:58
+ * @LastEditTime: 2022-03-27 00:50:44
 -->
 
 <template>
@@ -87,11 +87,21 @@
                                 >{{spuSaleAttrValue.saleAttrValueName}}</dd>
                             </dl>
                         </div>
+                        <!-- 加入购物车 -->
                         <div class="cartWrap">
                             <div class="controls">
-                                <input autocomplete="off" class="itxt" />
-                                <a href="javascript:" class="plus">+</a>
-                                <a href="javascript:" class="mins">-</a>
+                                <input
+                                    autocomplete="off"
+                                    class="itxt"
+                                    v-model="skuNum"
+                                    @change="changeSkuNum"
+                                />
+                                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                                <a
+                                    href="javascript:"
+                                    class="mins"
+                                    @click="skuNum > 1 ? skuNum-- : skuNum = 1"
+                                >-</a>
                             </div>
                             <div class="add">
                                 <a href="javascript:">加入购物车</a>
@@ -339,6 +349,11 @@ import { mapGetters } from "vuex";
 
 export default {
     name: "Detail",
+    data() {
+        return {
+            skuNum: 1 // 购买产品的数量
+        };
+    },
     components: {
         ImageList,
         Zoom
@@ -358,6 +373,19 @@ export default {
             });
             // 设置新高亮
             value.isChecked = 1;
+        },
+        // 修改购买数量
+        changeSkuNum(e) {
+            // 非数值 * 1 = NaN
+            let value = e.target.value * 1;
+
+            // 只要输入非法数据，skuNum 就为 1
+            if (isNaN(value) || value < 1) {
+                this.skuNum = 1;
+            } else {
+                // 数值 > 1，则向上取整
+                this.skuNum = Math.ceil(value);
+            }
         }
     }
 };
