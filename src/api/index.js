@@ -3,10 +3,12 @@
  * @Author: superman
  * @Date: 2022-03-16 20:29:39
  * @LastEditors: superman
- * @LastEditTime: 2022-03-25 22:49:48
+ * @LastEditTime: 2022-03-27 19:22:21
  */
 
 import requests from "./request";
+
+
 // 三级联动的接口 - /api/product/getBaseCategoryList
 // get 无参数
 export const reqCategoryList = () => requests.get("/product/getBaseCategoryList");
@@ -33,3 +35,10 @@ export const reGoodsInfo = (skuId => requests({
     url: `/item/${skuId}`,
     method: "GET"
 }));
+
+
+// 加入购物车  URL: /api/cart/addToCart/{skuId}/{skuNum}   POST
+export const reqAddOrUpdateShopCart = (skuId, skuNum) => requests({
+    url: `/cart/addToCart/${skuId}/${skuNum}`,
+    method: "POST"
+})

@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-26 10:12:24
  * @LastEditors: superman
- * @LastEditTime: 2022-03-27 00:50:44
+ * @LastEditTime: 2022-03-28 00:57:46
 -->
 
 <template>
@@ -104,7 +104,10 @@
                                 >-</a>
                             </div>
                             <div class="add">
-                                <a href="javascript:">加入购物车</a>
+                                <!--以前的路由跳转，从 A 路由跳转到 B 路由；
+                                    这里，在加入购物车、进行路由跳转之前，先发送请求
+                                把购买的产品信息通过请求的形式通知服务器，服务器进行存储-->
+                                <a @click="addShopCar">加入购物车</a>
                             </div>
                         </div>
                     </div>
@@ -386,6 +389,32 @@ export default {
                 // 数值 > 1，则向上取整
                 this.skuNum = Math.ceil(value);
             }
+        },
+        // 加入购物车的回调函数
+        addShopCar() {
+            // 1. 发请求 - 将产品加入到数据库
+            this.$store
+                .dispatch("detail/addOrUpdateShopCart", {
+                    skuId: this.$route.params.skuId,
+                    skuNum: this.skuNum
+                }) // then(catch) 的回调函数的参数 res(err) 是 Promise 实例的值
+                .then(_ => {
+                    // 2.1 服务器存储成功，传递参数、进行路由跳转
+                    /* 比较复杂的数据(skuInfo)，我们可以存储在 session 中 */
+                    sessionStorage.setItem(
+                        "SKUINFO",
+                        JSON.stringify(this.skuInfo) // 注意 session 中只能存储字符串
+                    );
+                    this.$router.push({
+                        name: "AddCartSuccess",
+                        /* 比较简单的数据(skuNum)，我们可以通过 query 传参 */
+                        query: { skuNum: this.skuNum }
+                    });
+                })
+                .catch(err => {
+                    // 2.2 服务器存储失败，提示用户
+                    alert(err);
+                });
         }
     }
 };
