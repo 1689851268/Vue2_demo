@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:19
  * @LastEditors: superman
- * @LastEditTime: 2022-03-25 22:43:47
+ * @LastEditTime: 2022-03-28 18:54:25
 -->
 # combat
 
@@ -200,3 +200,18 @@ scrollBehavior(to, from, savedPosition) {
     return { y: 0 }
 }
 ```
+
+
+
+
+
+# 游客用户 id
+1. 使用 uuid 插件，生成唯一的 id 值
+2. 进入商品详情页时，将 id 值存储到 localStorage 中
+3. 发送 axios 时，添加请求拦截器，在拦截器中存储 id 到请求头中
+
+
+
+
+
+# 删除购物车商品

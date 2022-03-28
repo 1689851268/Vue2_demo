@@ -3,13 +3,18 @@
  * @Author: superman
  * @Date: 2022-03-25 22:53:53
  * @LastEditors: superman
- * @LastEditTime: 2022-03-27 19:48:29
+ * @LastEditTime: 2022-03-28 15:24:54
  */
 
 import { reGoodsInfo, reqAddOrUpdateShopCart } from "@/api";
 
+// 封装游客身份模块 uuid，生成一个随机字符串（后续不能改变）
+import { getUUID } from '@/utils/uuid_token';
+
 const state = {
-    goodInfo: {}
+    goodInfo: {},
+    // 游客临时身份
+    uuid_token: getUUID()
 };
 
 const mutations = {

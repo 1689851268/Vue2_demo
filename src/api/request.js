@@ -3,11 +3,11 @@
  * @Author: superman
  * @Date: 2022-03-16 19:58:02
  * @LastEditors: superman
- * @LastEditTime: 2022-03-25 22:48:00
+ * @LastEditTime: 2022-03-28 15:31:39
  */
 
 import axios from "axios";
-
+import store from '@/store'
 
 // 引入进度条样式
 import "nprogress/nprogress.css";
@@ -25,10 +25,14 @@ const requests = axios.create({
 
 // 请求拦截器
 requests.interceptors.request.use(config => {
-    // 发送请求之前做点什么
-
     // 进度条开始
     nprogress.start();
+
+    // 将游客用户的 id 存入请求头
+    if (store.state.detail.uuid_token) {
+        // 给请求头添加字段 userTempId
+        config.headers.userTempId = store.state.detail.uuid_token;
+    }
 
     return config; // 配置对象 config 的 headers 属性非常重要
 }, error => {
