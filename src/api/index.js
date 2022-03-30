@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-16 20:29:39
  * @LastEditors: superman
- * @LastEditTime: 2022-03-30 19:31:19
+ * @LastEditTime: 2022-03-31 00:39:08
  */
 
 import requests from "./request";
@@ -77,4 +77,12 @@ export const reqUserRegister = (data) => requests({
     url: `/user/passport/register`,
     method: "POST",
     data
-})
+});
+
+
+// 用户登陆  URL：/api/user/passport/login    POST    phone、password
+export const reqUserLogin = data => requests({
+    url: "/user/passport/login",
+    data,
+    method: "POST"
+});

@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:19
  * @LastEditors: superman
- * @LastEditTime: 2022-03-30 16:24:21
+ * @LastEditTime: 2022-03-31 01:10:28
 -->
 # 项目问题
 
@@ -187,5 +187,8 @@ scrollBehavior(to, from, savedPosition) {
 
 
 
-# 登录注册
-1. 完成静态页面
+# token 令牌
+1. 注册：通过数据库存储用户信息
+2. 登陆：登陆成功时，后台为了区分用户，服务器会下发 token(令牌)，为用户的唯一标识
+   一般登陆成功，服务器会下发 token，浏览器[持续化存储] token，带着 token 找服务器要用户信息
+   Vuex 仓库对数据的存储，不是持久化的，刷新后数据就会被清空

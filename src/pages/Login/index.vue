@@ -3,7 +3,8 @@
         <!-- 登录 -->
         <div class="login-wrap">
             <div class="login">
-                <div class="loginform">
+                <div class="loginForm">
+                    <!-- 登录框顶部 -->
                     <ul class="tab clearFix">
                         <li>
                             <a href="##" style="border-right: 0">扫描登录</a>
@@ -13,19 +14,29 @@
                         </li>
                     </ul>
 
+                    <!-- 登录框 -->
                     <div class="content">
+                        <!-- 表单 -->
                         <form action="##">
+                            <!-- 账号 -->
                             <div class="input-text clearFix">
                                 <span></span>
                                 <input
                                     type="text"
                                     placeholder="邮箱/用户名/手机号"
+                                    v-model="phone"
                                 />
                             </div>
+                            <!-- 密码 -->
                             <div class="input-text clearFix">
                                 <span class="pwd"></span>
-                                <input type="text" placeholder="请输入密码" />
+                                <input
+                                    type="text"
+                                    placeholder="请输入密码"
+                                    v-model="password"
+                                />
                             </div>
+                            <!-- 勾选 [自动登陆] -->
                             <div class="setting clearFix">
                                 <label class="checkbox inline">
                                     <input
@@ -38,9 +49,14 @@
                                 </label>
                                 <span class="forget">忘记密码？</span>
                             </div>
-                            <button class="btn">登&nbsp;&nbsp;录</button>
+                            <!-- 登陆 -->
+                            <!-- form 标签中的 button 默认是提交按钮，所以我们需要阻止默认行为 -->
+                            <button class="btn" @click.prevent="userLogin">
+                                登&nbsp;&nbsp;录
+                            </button>
                         </form>
 
+                        <!-- 其他账号 -->
                         <div class="call clearFix">
                             <ul>
                                 <li><img src="./images/qq.png" alt="" /></li>
@@ -50,14 +66,15 @@
                                     <img src="./images/weixin.png" alt="" />
                                 </li>
                             </ul>
-                            <router-link class="register" to="/register"
-                                >立即注册</router-link
-                            >
+                            <router-link class="register" to="/register">
+                                立即注册
+                            </router-link>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- 底部 -->
         <div class="copyright">
             <ul>
@@ -79,6 +96,30 @@
 <script>
 export default {
     name: "Login",
+    data() {
+        return {
+            phone: "",
+            password: "",
+        };
+    },
+    methods: {
+        // 登陆的回调函数
+        userLogin() {
+            let { phone, password } = this;
+            if (phone && password) {
+                this.$store
+                    .dispatch("user/userLogin", { phone, password })
+                    .then(() => {
+                        this.$router.push("/home");
+                    })
+                    .catch((err) => {
+                        alert(err);
+                    });
+            } else {
+                alert("请填写资料！");
+            }
+        },
+    },
 };
 </script>
 
@@ -95,7 +136,7 @@ export default {
             background: url(./images/loginbg.png) no-repeat;
         }
 
-        .loginform {
+        .loginForm {
             width: 420px;
             height: 406px;
             box-sizing: border-box;

@@ -3,16 +3,21 @@
  * @Author: superman
  * @Date: 2022-03-30 18:45:40
  * @LastEditors: superman
- * @LastEditTime: 2022-03-30 19:46:24
+ * @LastEditTime: 2022-03-31 01:04:17
  */
 
-import { reqGetCode, reqUserRegister } from "@/api/index";
+import { reqGetCode, reqUserLogin, reqUserRegister } from "@/api/index";
 
-const state = { code: "" };
+const state = { code: "", token: "" };
 
 const mutations = {
+    // 获取验证码
     GETCODE(state, code) {
         state.code = code;
+    },
+    // 用户登陆
+    USERLOGIN(state, token) {
+        state.token = token;
     }
 };
 
@@ -40,6 +45,17 @@ const actions = {
             return Promise.reject(res.message);
         }
         return Promise.reject("register error");
+    },
+    // 用户登陆（token）
+    async userLogin(context, user) {
+        let res = await reqUserLogin(user);
+        if (res.code == 200) {
+            context.commit("USERLOGIN", res.data.token);
+            return "ok";
+        } else if (res.code == 202) {
+            return res.message;
+        }
+        return Promise.reject("login error");
     }
 };
 
