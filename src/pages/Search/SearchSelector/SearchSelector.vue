@@ -9,7 +9,9 @@
                         v-for="trademark in trademarkList"
                         :key="trademark.tmId"
                         @click="tradeMarkHandler(trademark)"
-                    >{{trademark.tmName }}</li>
+                    >
+                        {{ trademark.tmName }}
+                    </li>
                 </ul>
             </div>
 
@@ -43,7 +45,7 @@ import { mapGetters } from "vuex";
 export default {
     name: "SearchSelector",
     computed: {
-        ...mapGetters("search", ["trademarkList", "attrsList"])
+        ...mapGetters("search", ["trademarkList", "attrsList"]),
     },
     methods: {
         // 品牌的事件处理函数
@@ -54,8 +56,8 @@ export default {
         // 传递商品属性值
         attrInfo(attr, attrVal) {
             this.$emit("attrInfo", attr, attrVal);
-        }
-    }
+        },
+    },
 };
 </script>
 

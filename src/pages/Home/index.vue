@@ -43,7 +43,7 @@ export default {
         Rank,
         Like,
         Floor,
-        Brand
+        Brand,
     },
     mounted() {
         // 获取 floor 组件的数据
@@ -51,8 +51,8 @@ export default {
     },
     computed: {
         ...mapState({
-            floorList: state => state.home.floorList
-        })
-    }
+            floorList: (state) => state.home.floorList,
+        }),
+    },
 };
 </script>

@@ -37,15 +37,22 @@
                             <i @click="removeTrademark">×</i>
                         </li>
                         <!-- 商品属性 -->
-                        <li class="with-x" v-for="(prop, index) in searchParams.props" :key="index">
-                            {{ prop.split(':')[1] }}
+                        <li
+                            class="with-x"
+                            v-for="(prop, index) in searchParams.props"
+                            :key="index"
+                        >
+                            {{ prop.split(":")[1] }}
                             <i @click="removeProp(index)">×</i>
                         </li>
                     </ul>
                 </div>
 
                 <!-- selector -->
-                <SearchSelector @trademarkInfo="getTrademark" @attrInfo="attrInfo" />
+                <SearchSelector
+                    @trademarkInfo="getTrademark"
+                    @attrInfo="attrInfo"
+                />
 
                 <!-- details -->
                 <div class="details clearfix">
@@ -55,18 +62,32 @@
                             <!-- 排序的选项 -->
                             <ul class="sui-nav">
                                 <!-- active - 表示选中，默认选中 [综合] -->
-                                <li :class="{active: orderOne}" @click="changeOrder('1')">
+                                <li
+                                    :class="{ active: orderOne }"
+                                    @click="changeOrder('1')"
+                                >
                                     <a>
                                         综合
-                                        <span v-show="orderOne && orderAsc">↑</span>
-                                        <span v-show="orderOne && !orderAsc">↓</span>
+                                        <span v-show="orderOne && orderAsc"
+                                            >↑</span
+                                        >
+                                        <span v-show="orderOne && !orderAsc"
+                                            >↓</span
+                                        >
                                     </a>
                                 </li>
-                                <li :class="{active: !orderOne}" @click="changeOrder('2')">
+                                <li
+                                    :class="{ active: !orderOne }"
+                                    @click="changeOrder('2')"
+                                >
                                     <a>
                                         价格
-                                        <span v-show="!orderOne && orderAsc">↑</span>
-                                        <span v-show="!orderOne && !orderAsc">↓</span>
+                                        <span v-show="!orderOne && orderAsc"
+                                            >↑</span
+                                        >
+                                        <span v-show="!orderOne && !orderAsc"
+                                            >↓</span
+                                        >
                                     </a>
                                 </li>
                             </ul>
@@ -76,7 +97,11 @@
                     <!-- 产品列表 -->
                     <div class="goods-list">
                         <ul class="yui3-g">
-                            <li class="yui3-u-1-5" v-for="good in goodsList" :key="good.id">
+                            <li
+                                class="yui3-u-1-5"
+                                v-for="good in goodsList"
+                                :key="good.id"
+                            >
                                 <div class="list-wrap">
                                     <div class="p-img">
                                         <!-- 跳转到详情页，传入商品的 id 作为 params 参数 -->
@@ -112,12 +137,17 @@
                                         <a
                                             href="success-cart.html"
                                             target="_blank"
-                                            class="sui-btn btn-bordered btn-danger"
-                                        >加入购物车</a>
+                                            class="
+                                                sui-btn
+                                                btn-bordered btn-danger
+                                            "
+                                            >加入购物车</a
+                                        >
                                         <a
                                             href="javascript:void(0);"
                                             class="sui-btn btn-bordered"
-                                        >收藏</a>
+                                            >收藏</a
+                                        >
                                     </div>
                                 </div>
                             </li>
@@ -158,8 +188,8 @@ export default {
                 pageNo: 1, // 页数 (默认第 1 页)
                 pageSize: 5, // 每页的数量
                 props: [], // 商品的属性
-                trademark: "" // 商品的品牌
-            }
+                trademark: "", // 商品的品牌
+            },
         };
     },
     beforeMount() {
@@ -171,13 +201,13 @@ export default {
     },
     computed: {
         ...mapGetters("search", ["goodsList"]),
-        ...mapState("search", { total: state => state.searchList.total }),
+        ...mapState("search", { total: (state) => state.searchList.total }),
         orderOne() {
             return this.searchParams.order.includes("1");
         },
         orderAsc() {
             return this.searchParams.order.split(":")[1] == "asc";
-        }
+        },
     },
     methods: {
         // 向服务器发请求获取 search 模块的数据
@@ -205,7 +235,7 @@ export default {
             if (this.$route.params) {
                 this.$router.push({
                     name: "Search",
-                    params: this.$route.params
+                    params: this.$route.params,
                 });
             } else {
                 this.$router.push({ name: "Search" });
@@ -270,7 +300,7 @@ export default {
         getPageNo(pageNo) {
             this.searchParams.pageNo = pageNo;
             this.getData();
-        }
+        },
     },
     watch: {
         // 直接监听 $route 从而监听参数变化
@@ -284,8 +314,8 @@ export default {
                 this.$route.params
             );
             this.getData();
-        }
-    }
+        },
+    },
 };
 </script>
 

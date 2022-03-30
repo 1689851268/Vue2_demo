@@ -1,15 +1,16 @@
 <!--
- * @Description: 购物车商品展示
+ * @Description: 购物车商品展示全部商品
  * @Author: superman
  * @Date: 2022-03-28 01:10:24
  * @LastEditors: superman
- * @LastEditTime: 2022-03-28 20:02:55
+ * @LastEditTime: 2022-03-30 15:02:46
 -->
 
 <template>
     <div class="cart">
         <h4>全部商品</h4>
         <div class="cart-main">
+            <!-- 表头 -->
             <div class="cart-th">
                 <div class="cart-th1">全部</div>
                 <div class="cart-th2">商品</div>
@@ -18,35 +19,46 @@
                 <div class="cart-th5">小计（元）</div>
                 <div class="cart-th6">操作</div>
             </div>
+            <!-- 商品表格内容 -->
             <div class="cart-body">
-                <ul class="cart-list" v-for="cart in cartInfoList" :key="cart.id">
+                <ul
+                    class="cart-list"
+                    v-for="cart in cartInfoList"
+                    :key="cart.id"
+                >
                     <!-- 选中按钮 -->
                     <li class="cart-list-con1">
                         <input
                             type="checkbox"
                             name="chk_list"
                             :checked="cart.isChecked"
-                            @click="cart.isChecked = cart.isChecked == 1 ?  0 : 1"
+                            @click="
+                                cart.isChecked = cart.isChecked == 1 ? 0 : 1
+                            "
                             @change="updateChecked(cart, $event)"
                         />
                     </li>
                     <!-- 商品 -->
                     <li class="cart-list-con2">
                         <img :src="cart.imgUrl" />
-                        <div class="item-msg">{{cart.skuName}}</div>
+                        <div class="item-msg">{{ cart.skuName }}</div>
                     </li>
                     <!-- 单价 -->
                     <li class="cart-list-con4">
-                        <span class="price">{{cart.cartPrice}}.00</span>
+                        <span class="price">{{ cart.cartPrice }}.00</span>
                     </li>
                     <!-- 数量 -->
                     <li class="cart-list-con5">
-                        <a @click="handler('minus', -1, cart)" class="mins">-</a>
+                        <a @click="handler('minus', -1, cart)" class="mins"
+                            >-</a
+                        >
                         <input
                             autocomplete="off"
                             type="text"
                             :value="cart.skuNum"
-                            @change="handler('change', $event.target.value * 1, cart)"
+                            @change="
+                                handler('change', $event.target.value * 1, cart)
+                            "
                             minnum="1"
                             class="itxt"
                         />
@@ -54,11 +66,15 @@
                     </li>
                     <!-- 小计 -->
                     <li class="cart-list-con6">
-                        <span class="sum">{{cart.skuNum * cart.cartPrice}}.00</span>
+                        <span class="sum"
+                            >{{ cart.skuNum * cart.cartPrice }}.00</span
+                        >
                     </li>
                     <!-- 操作 -->
                     <li class="cart-list-con7">
-                        <a class="sindelet" @click="deleteCartById(cart)">删除</a>
+                        <a class="sindelet" @click="deleteCartById(cart)"
+                            >删除</a
+                        >
                         <br />
                         <a href="#none">移到收藏</a>
                     </li>
@@ -80,7 +96,7 @@
             </div>
             <!-- 操作项 -->
             <div class="option">
-                <a href="#none">删除选中的商品</a>
+                <a @click="deleteAllCheckedCart">删除选中的商品</a>
                 <a href="#none">移到我的关注</a>
                 <a href="#none">清除下柜商品</a>
             </div>
@@ -89,13 +105,13 @@
                 <!-- 商品总数 -->
                 <div class="chosed">
                     已选择
-                    <span>{{totalNum}}</span>
+                    <span>{{ totalNum }}</span>
                     件商品
                 </div>
                 <!-- 商品总价 -->
                 <div class="sumprice">
                     <em>总价（不含运费） ：</em>
-                    <i class="summoney">{{totalPrice}}</i>
+                    <i class="summoney">{{ totalPrice }}</i>
                 </div>
                 <div class="sumbtn">
                     <a class="sum-btn" href="###" target="_blank">结算</a>
@@ -129,16 +145,16 @@ export default {
         },
         // 全选按钮
         isAllCheck() {
-            return this.cartInfoList.every(item => item.isChecked);
+            return this.cartInfoList.every((item) => item.isChecked);
         },
         // 商品总数
         totalNum() {
             let total = 0;
-            this.cartInfoList.forEach(item => {
+            this.cartInfoList.forEach((item) => {
                 total += item.skuNum;
             });
             return total;
-        }
+        },
     },
     methods: {
         getData() {
@@ -165,7 +181,7 @@ export default {
             }
         },
         // 修改产品个数，向服务器发请求（使用 lodash 的 throttle 节流）
-        handler: throttle(function(type, disNum, cart) {
+        handler: throttle(function (type, disNum, cart) {
             // 算出改变的数量
             switch (type) {
                 case "minus":
@@ -186,14 +202,14 @@ export default {
             this.$store
                 .dispatch("detail/addOrUpdateShopCart", {
                     skuId: cart.skuId,
-                    skuNum: disNum
+                    skuNum: disNum,
                 })
                 .then(
-                    _ => {
+                    (_) => {
                         // 请求成功则刷新页面
                         this.getData();
                     },
-                    err => {
+                    (err) => {
                         alert(err);
                     }
                 );
@@ -205,7 +221,7 @@ export default {
                 .then(() => {
                     this.getData();
                 })
-                .catch(err => {
+                .catch((err) => {
                     alert(err);
                 });
         },
@@ -214,21 +230,32 @@ export default {
             this.$store
                 .dispatch("shopCart/updateCheckedById", {
                     skuId: cart.skuId,
-                    isChecked: +event.target.checked
+                    isChecked: +event.target.checked,
                 })
                 .then(
                     () => {
                         this.getData();
                     },
-                    err => {
+                    (err) => {
                         alert(err);
                     }
                 );
-        }
+        },
+        // 删除所有选中的商品
+        deleteAllCheckedCart() {
+            this.$store.dispatch("shopCart/deleteAllCheckedCart").then(
+                () => {
+                    this.getData();
+                },
+                (err) => {
+                    alert(err);
+                }
+            );
+        },
     },
     mounted() {
         this.getData();
-    }
+    },
 };
 </script>
 
