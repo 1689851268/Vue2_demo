@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-28 01:10:24
  * @LastEditors: superman
- * @LastEditTime: 2022-03-30 15:02:46
+ * @LastEditTime: 2022-03-30 15:54:00
 -->
 
 <template>
@@ -90,7 +90,7 @@
                     class="chooseAll"
                     type="checkbox"
                     :checked="isAllCheck"
-                    @click="toggleAll"
+                    @change="updateAllCartChecked"
                 />
                 <label for="allCheck">全选</label>
             </div>
@@ -161,24 +161,16 @@ export default {
             this.$store.dispatch("shopCart/getCartList");
         },
         // 全选框
-        toggleAll() {
-            let all = 0; // 默认全不选
-            for (const cart of this.cartInfoList) {
-                // 但凡有 0
-                if (!cart.isChecked) {
-                    all = 1; // 则全选
-                    break;
-                }
-            }
-            if (all) {
-                for (const cart of this.cartInfoList) {
-                    cart.isChecked = 1;
-                }
-            } else {
-                for (const cart of this.cartInfoList) {
-                    cart.isChecked = 0;
-                }
-            }
+        updateAllCartChecked(e) {
+            let isChecked = e.target.checked;
+            this.$store
+                .dispatch("shopCart/updateAllCartIsChecked", isChecked)
+                .then(() => {
+                    this.getData();
+                })
+                .catch(() => {
+                    alert("checkAll error");
+                });
         },
         // 修改产品个数，向服务器发请求（使用 lodash 的 throttle 节流）
         handler: throttle(function (type, disNum, cart) {

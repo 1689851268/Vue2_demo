@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-28 14:52:42
  * @LastEditors: superman
- * @LastEditTime: 2022-03-30 15:13:53
+ * @LastEditTime: 2022-03-30 15:54:43
  */
 
 import { reqCartList, reqDeleteCartById, reqUpdateCheckById } from "@/api";
@@ -63,6 +63,20 @@ const actions = {
         });
 
         // 等所有的 Promise 操作都完成后
+        return Promise.all(promiseArr);
+    },
+    // 全选按钮
+    updateAllCartIsChecked(context, isChecked) {
+        // 获取购物车中的商品数组
+        let cartInfoList = context.getters.cartList.cartInfoList;
+        let promiseArr = [];
+        isChecked = isChecked ? '1' : '0';
+
+        cartInfoList.forEach(ele => {
+            let res = context.dispatch("updateCheckedById", { skuId: ele.skuId, isChecked });
+            promiseArr.push(res);
+        });
+
         return Promise.all(promiseArr);
     }
 };
