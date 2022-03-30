@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-17 23:25:33
  * @LastEditors: superman
- * @LastEditTime: 2022-03-28 14:55:46
+ * @LastEditTime: 2022-03-30 18:47:12
  */
 
 import Vue from 'vue';
@@ -17,9 +17,10 @@ import home from './home';
 import search from './search';
 import detail from './detail';
 import shopCart from './shopCart';
+import user from './user';
 
 // 对外暴露 Store 实例
 export default new Vuex.Store({
     // 实现模块式存储
-    modules: { home, search, detail, shopCart }
+    modules: { home, search, detail, shopCart, user }
 });

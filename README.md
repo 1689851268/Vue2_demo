@@ -3,35 +3,8 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:19
  * @LastEditors: superman
- * @LastEditTime: 2022-03-28 18:54:25
+ * @LastEditTime: 2022-03-30 16:24:21
 -->
-# combat
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-
-
 # 项目问题
 
 ## less 问题，浏览器不能解析 less
@@ -214,4 +187,5 @@ scrollBehavior(to, from, savedPosition) {
 
 
 
-# 删除购物车商品
+# 登录注册
+1. 完成静态页面

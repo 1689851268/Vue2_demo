@@ -1,20 +1,259 @@
-<!--
- * @Description: 注册页
- * @Author: superman
- * @Date: 2022-03-14 19:32:40
- * @LastEditors: superman
- * @LastEditTime: 2022-03-26 10:46:49
--->
-
 <template>
-    <div>
-        <h1>Register</h1>
+    <div class="register-container">
+        <!-- 注册内容 -->
+        <div class="register">
+            <h3>
+                注册新用户
+                <span class="go"
+                    >我有账号，去 <a href="login.html" target="_blank">登陆</a>
+                </span>
+            </h3>
+            <!-- 手机号码 -->
+            <div class="content">
+                <label>手机号:</label>
+                <input
+                    type="text"
+                    placeholder="请输入你的手机号"
+                    v-model="phone"
+                />
+                <span class="error-msg">错误提示信息</span>
+            </div>
+            <!-- 验证码 -->
+            <div class="content">
+                <label>验证码:</label>
+                <input type="text" placeholder="请输入验证码" v-model="code" />
+                <button style="margin-left: 8px; padding: 8px" @click="getCode">
+                    获取验证码
+                </button>
+                <span class="error-msg">错误提示信息</span>
+            </div>
+            <!-- 密码 -->
+            <div class="content">
+                <label>登录密码:</label>
+                <input
+                    type="password"
+                    placeholder="请输入你的登录密码"
+                    v-model="password"
+                />
+                <span class="error-msg">错误提示信息</span>
+            </div>
+            <!-- 确认密码 -->
+            <div class="content">
+                <label>确认密码:</label>
+                <input
+                    type="password"
+                    placeholder="请输入确认密码"
+                    v-model="checkPassword"
+                />
+                <span class="error-msg">错误提示信息</span>
+            </div>
+            <!-- 勾选协议 -->
+            <div class="controls">
+                <input
+                    name="m1"
+                    type="checkbox"
+                    :checked="agree"
+                    @change="agree = !agree"
+                />
+                <span>同意协议并注册《尚品汇用户协议》</span>
+                <span class="error-msg">错误提示信息</span>
+            </div>
+            <!-- 注册按钮 -->
+            <div class="btn">
+                <button @click="userRegister">完成注册</button>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="copyright">
+            <ul>
+                <li>关于我们</li>
+                <li>联系我们</li>
+                <li>联系客服</li>
+                <li>商家入驻</li>
+                <li>营销中心</li>
+                <li>手机尚品汇</li>
+                <li>销售联盟</li>
+                <li>尚品汇社区</li>
+            </ul>
+            <div class="address">地址：北京市昌平区宏福科技园综合楼6层</div>
+            <div class="beian">京ICP备19006430号</div>
+        </div>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+    name: "Register",
+    data() {
+        return {
+            phone: "", // 电话号码
+            code: "", // 验证码
+            password: "", // 密码
+            checkPassword: "", // 确认密码
+            agree: false, // 协议勾选
+        };
+    },
+    methods: {
+        // 获取验证码
+        getCode() {
+            // 简单验证一下，至少填写了手机号，才可以获取验证码
+            this.phone &&
+                this.$store
+                    .dispatch("user/getCode", this.phone)
+                    .then(() => {
+                        // 自动填写验证码
+                        this.code = this.$store.state.user.code; // this.$store.state 为总仓库
+                    })
+                    .catch((err) => console.log("err", err));
+        },
+        // 用户注册
+        userRegister() {
+            const { phone, code, password, checkPassword, agree } = this;
+            if (
+                phone &&
+                code &&
+                password &&
+                password == checkPassword &&
+                agree
+            ) {
+                this.$store
+                    .dispatch("user/userRegister", {
+                        phone,
+                        password,
+                        code,
+                    })
+                    .then(() => this.$router.push("/login")) // 成功则跳转到登陆页面
+                    .catch((err) => {
+                        alert(err);
+                        this.clearData();
+                    });
+            }
+        },
+        // 清空用户填写的数据
+        clearData() {
+            this.phone = ""; // 电话号码
+            this.code = ""; // 验证码
+            this.password = ""; // 密码
+            this.checkPassword = ""; // 确认密码
+            this.agree = false; // 协议勾选
+        },
+    },
+};
 </script>
 
-<style>
+<style lang="less" scoped>
+.register-container {
+    .register {
+        width: 1200px;
+        height: 445px;
+        border: 1px solid rgb(223, 223, 223);
+        margin: 0 auto;
+
+        h3 {
+            background: #ececec;
+            margin: 0;
+            padding: 6px 15px;
+            color: #333;
+            border-bottom: 1px solid #dfdfdf;
+            font-size: 20.04px;
+            line-height: 30.06px;
+
+            span {
+                font-size: 14px;
+                float: right;
+
+                a {
+                    color: #e1251b;
+                }
+            }
+        }
+
+        div:nth-of-type(1) {
+            margin-top: 40px;
+        }
+
+        .content {
+            padding-left: 390px;
+            margin-bottom: 18px;
+            position: relative;
+
+            label {
+                font-size: 14px;
+                width: 96px;
+                text-align: right;
+                display: inline-block;
+            }
+
+            input {
+                width: 270px;
+                height: 38px;
+                padding-left: 8px;
+                box-sizing: border-box;
+                margin-left: 5px;
+                outline: none;
+                border: 1px solid #999;
+            }
+
+            img {
+                vertical-align: sub;
+            }
+
+            .error-msg {
+                position: absolute;
+                top: 100%;
+                left: 495px;
+                color: red;
+            }
+        }
+
+        .controls {
+            text-align: center;
+            position: relative;
+
+            input {
+                vertical-align: middle;
+            }
+
+            .error-msg {
+                position: absolute;
+                top: 100%;
+                left: 495px;
+                color: red;
+            }
+        }
+
+        .btn {
+            text-align: center;
+            line-height: 36px;
+            margin: 17px 0 0 55px;
+
+            button {
+                outline: none;
+                width: 270px;
+                height: 36px;
+                background: #e1251b;
+                color: #fff !important;
+                display: inline-block;
+                font-size: 16px;
+            }
+        }
+    }
+
+    .copyright {
+        width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        line-height: 24px;
+
+        ul {
+            li {
+                display: inline-block;
+                border-right: 1px solid #e4e4e4;
+                padding: 0 20px;
+                margin: 15px 0;
+            }
+        }
+    }
+}
 </style>

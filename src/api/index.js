@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-16 20:29:39
  * @LastEditors: superman
- * @LastEditTime: 2022-03-28 19:55:22
+ * @LastEditTime: 2022-03-30 19:31:19
  */
 
 import requests from "./request";
@@ -63,3 +63,18 @@ export const reqUpdateCheckById = (skuId, isChecked) => requests({
     url: `/cart/checkCart/${skuId}/${isChecked}`,
     method: "GET"
 });
+
+
+// 获取验证码  URL：/api/user/passport/sendCode/{phone}    GET
+export const reqGetCode = phone => requests({
+    url: `/user/passport/sendCode/${phone}`,
+    method: "GET"
+});
+
+
+// 用户注册  URL：/api/user/passport/register    POST    phone、password、code
+export const reqUserRegister = (data) => requests({
+    url: `/user/passport/register`,
+    method: "POST",
+    data
+})
