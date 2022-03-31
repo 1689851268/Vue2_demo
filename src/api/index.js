@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-16 20:29:39
  * @LastEditors: superman
- * @LastEditTime: 2022-03-31 00:39:08
+ * @LastEditTime: 2022-03-31 14:29:30
  */
 
 import requests from "./request";
@@ -85,4 +85,18 @@ export const reqUserLogin = data => requests({
     url: "/user/passport/login",
     data,
     method: "POST"
+});
+
+
+// 获取用户信息  URL：/api/user/passport/auth/getUserInfo    GET
+export const reqUserInfo = () => requests({
+    url: "/user/passport/auth/getUserInfo",
+    method: "GET"
+});
+
+
+// 退出登陆  URL：/api/user/passport/logout    GET
+export const reqLogout = () => requests({
+    url: "/user/passport/logout",
+    method: "GET"
 });

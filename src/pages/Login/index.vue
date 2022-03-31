@@ -22,7 +22,7 @@
                             <div class="input-text clearFix">
                                 <span></span>
                                 <input
-                                    type="text"
+                                    type="phone"
                                     placeholder="邮箱/用户名/手机号"
                                     v-model="phone"
                                 />
@@ -31,7 +31,7 @@
                             <div class="input-text clearFix">
                                 <span class="pwd"></span>
                                 <input
-                                    type="text"
+                                    type="password"
                                     placeholder="请输入密码"
                                     v-model="password"
                                 />

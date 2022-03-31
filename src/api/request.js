@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-16 19:58:02
  * @LastEditors: superman
- * @LastEditTime: 2022-03-28 15:31:39
+ * @LastEditTime: 2022-03-31 12:32:49
  */
 
 import axios from "axios";
@@ -32,6 +32,11 @@ requests.interceptors.request.use(config => {
     if (store.state.detail.uuid_token) {
         // 给请求头添加字段 userTempId
         config.headers.userTempId = store.state.detail.uuid_token;
+    }
+
+    // 携带 token 给服务器
+    if (store.state.user.token) {
+        config.headers.token = store.state.user.token;
     }
 
     return config; // 配置对象 config 的 headers 属性非常重要

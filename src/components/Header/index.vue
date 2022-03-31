@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-26 10:12:24
  * @LastEditors: superman
- * @LastEditTime: 2022-03-26 10:44:55
+ * @LastEditTime: 2022-03-31 14:45:42
 -->
 
 <template>
@@ -13,18 +13,22 @@
             <div class="container">
                 <div class="loginList">
                     <p>尚品汇欢迎您！</p>
-                    <!-- 用户登录了，显示用户信息与退出登录 ||用户没有登录，显示的是登录与注册-->
-                    <!-- <p v-if="!userInfo.name"> -->
-                    <p>
+                    <!-- 用户登录了，显示用户信息与退出登录 || 用户没有登录，显示的是登录与注册-->
+                    <p v-if="userName">
+                        <a class="register">{{ userName }}</a>
+                        <a class="register" @click="logout">退出登录</a>
+                    </p>
+                    <p v-else>
                         <span>请</span>
                         <!-- 声明式导航，要设置 to 属性 -->
                         <router-link :to="{ name: 'Login' }">登录</router-link>
-                        <router-link class="register" :to="{ name: 'Register' }">免费注册</router-link>
+                        <router-link
+                            class="register"
+                            :to="{ name: 'Register' }"
+                        >
+                            免费注册
+                        </router-link>
                     </p>
-                    <!-- <p v-else>
-                        <a>{{ userInfo.name }}</a>
-                        <a class="register" @click="logout">退出登录</a>
-                    </p>-->
                 </div>
                 <div class="typeList">
                     <!-- <router-link to="/center/myorder">我的订单</router-link>
@@ -56,7 +60,13 @@
                         v-model="keyword"
                     />
                     <!-- 编程式导航 -->
-                    <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">搜索</button>
+                    <button
+                        class="sui-btn btn-xlarge btn-danger"
+                        type="button"
+                        @click="goSearch"
+                    >
+                        搜索
+                    </button>
                 </form>
             </div>
         </div>
@@ -68,7 +78,7 @@ export default {
     name: "Header",
     data() {
         return {
-            keyword: "" // 获取搜索内容
+            keyword: "", // 获取搜索内容
         };
     },
     methods: {
@@ -77,7 +87,7 @@ export default {
             // 对象写法：跳转、传 params、query 参数
             let location = {
                 name: "Search",
-                params: { keyword: this.keyword || null }
+                params: { keyword: this.keyword || null },
             };
 
             // 点击搜索，只带 params 参数
@@ -92,15 +102,27 @@ export default {
         //退出登录
         logout() {
             //退出登录的请求
-            this.$store.dispatch("userLogout");
-        }
+            this.$store
+                .dispatch("user/userLogout")
+                .then(() => {
+                    // 成功退出，则回到首页
+                    this.$router.push("/home");
+                })
+                .catch((err) => alert(err));
+        },
     },
     mounted() {
         // 通过全局事件总线请求关键字
         this.$bus.$on("clear", () => {
             this.keyword = "";
         });
-    }
+    },
+    computed: {
+        // 获取用户名
+        userName() {
+            return this.$store.state.user.userInfo.name;
+        },
+    },
 };
 </script>
 
@@ -124,9 +146,8 @@ export default {
                     margin-right: 10px;
 
                     .register {
-                        border-left: 1px solid #b3aeae;
                         padding: 0 5px;
-                        margin-left: 5px;
+                        padding: 15px;
                     }
                 }
             }

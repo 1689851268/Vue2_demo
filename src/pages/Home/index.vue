@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 19:32:12
  * @LastEditors: superman
- * @LastEditTime: 2022-03-26 10:46:37
+ * @LastEditTime: 2022-03-31 12:40:46
 -->
 <template>
     <div>
@@ -48,6 +48,11 @@ export default {
     mounted() {
         // 获取 floor 组件的数据
         this.$store.dispatch("home/getFloorList");
+        // 获取用户信息
+        this.$store
+            .dispatch("user/userInfo")
+            .then()
+            .catch(() => {});
     },
     computed: {
         ...mapState({
