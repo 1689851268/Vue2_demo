@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-25 21:56:57
  * @LastEditors: superman
- * @LastEditTime: 2022-03-28 01:13:04
+ * @LastEditTime: 2022-03-31 18:41:58
  */
 
 // 引入路由组件
@@ -43,6 +43,11 @@ export default [{
     path: "/shopcart", // 购物车
     name: "ShopCart",
     component: () => import('../pages/ShopCart'),
+    meta: { show: true }
+}, {
+    path: "/trade", // 结算页面
+    name: "Trade",
+    component: () => import('../pages/Trade'),
     meta: { show: true }
 }, {
     path: '*',

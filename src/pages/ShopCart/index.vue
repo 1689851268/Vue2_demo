@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-28 01:10:24
  * @LastEditors: superman
- * @LastEditTime: 2022-03-30 15:54:00
+ * @LastEditTime: 2022-03-31 19:36:17
 -->
 
 <template>
@@ -114,7 +114,7 @@
                     <i class="summoney">{{ totalPrice }}</i>
                 </div>
                 <div class="sumbtn">
-                    <a class="sum-btn" href="###" target="_blank">结算</a>
+                    <router-link class="sum-btn" to="/trade">结算</router-link>
                 </div>
             </div>
         </div>

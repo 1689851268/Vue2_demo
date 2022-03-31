@@ -3,8 +3,16 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:19
  * @LastEditors: superman
- * @LastEditTime: 2022-03-31 14:56:20
+ * @LastEditTime: 2022-03-31 19:47:52
 -->
+
+# 账号 & 密码
+13700000000    111111
+
+
+
+
+
 # 项目问题
 
 ## less 问题，浏览器不能解析 less
@@ -198,5 +206,4 @@ scrollBehavior(to, from, savedPosition) {
 
 
 # 导航守卫
-
 现象：用户已登录的话，不能再进入登陆页面

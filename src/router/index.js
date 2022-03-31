@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 16:26:10
  * @LastEditors: superman
- * @LastEditTime: 2022-03-31 18:25:22
+ * @LastEditTime: 2022-03-31 19:36:38
  */
 
 import Vue from 'vue'
@@ -39,38 +39,29 @@ const router = new VueRouter({
 
 
 /**
- * @description: 全局前置守卫
+ * @description: 全局路由前置守卫
  * @param { to-即将进入的路由对象; from-正要离开的路由对象; next-放行函数 }
  * @return { null }
  */
 router.beforeEach((to, from, next) => {
-
     let name = store.state.user.userInfo.name; // 用户名
     let token = store.state.user.token; // token
 
-
     if (token) { /* ---------- 1. 已登录 ---------- */
-
         if (to.path == "/login") { // 1.1 去 login 页
             next("/home");
-
         } else { // 1.2 去其他页
-
             if (name) { // 1.2.1 有 [用户名]
                 next()
-
-            } else { // 1.2.2 没有 [用户名]
+            } else { // 1.2.2 没有 [用户名] （因为只有 Home 组件挂载时获取了用户数据，其他组件都没有获取）
                 store.dispatch("user/userInfo").then(() => {
                     next();
                 }).catch(() => { // 获取数据失败 （ token 失效 ）
-                    store.dispatch("user/userLogout").then(() => {
-                        alert("已过期~ 请重新登陆~");
-                    }); // 将用户数据清除干净
+                    store.dispatch("user/userLogout"); // 将用户数据清除干净
                     next('/login');
                 });
             }
         }
-
     } else { /* ---------- 2. 未登录 ---------- */
         next();
     }

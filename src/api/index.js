@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-16 20:29:39
  * @LastEditors: superman
- * @LastEditTime: 2022-03-31 14:29:30
+ * @LastEditTime: 2022-03-31 19:54:28
  */
 
 import requests from "./request";
@@ -98,5 +98,19 @@ export const reqUserInfo = () => requests({
 // 退出登陆  URL：/api/user/passport/logout    GET
 export const reqLogout = () => requests({
     url: "/user/passport/logout",
+    method: "GET"
+});
+
+
+// 获取用户地址信息  URL: /api/user/userAddress/auth/findUserAddressList    GET
+export const reqAddressInfo = () => requests({
+    url: "/user/userAddress/auth/findUserAddressList",
+    method: "GET"
+});
+
+
+// 获取商品清单  URL: /api/order/auth/trade    GET
+export const reqOrderInfo = () => requests({
+    url: "/order/auth/trade",
     method: "GET"
 });
