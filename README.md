@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:19
  * @LastEditors: superman
- * @LastEditTime: 2022-03-31 01:10:28
+ * @LastEditTime: 2022-03-31 14:56:20
 -->
 # 项目问题
 
@@ -192,3 +192,11 @@ scrollBehavior(to, from, savedPosition) {
 2. 登陆：登陆成功时，后台为了区分用户，服务器会下发 token(令牌)，为用户的唯一标识
    一般登陆成功，服务器会下发 token，浏览器[持续化存储] token，带着 token 找服务器要用户信息
    Vuex 仓库对数据的存储，不是持久化的，刷新后数据就会被清空
+
+
+
+
+
+# 导航守卫
+
+现象：用户已登录的话，不能再进入登陆页面

@@ -3,15 +3,17 @@
  * @Author: superman
  * @Date: 2022-03-14 16:26:10
  * @LastEditors: superman
- * @LastEditTime: 2022-03-25 22:38:44
+ * @LastEditTime: 2022-03-31 18:25:22
  */
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routers' // 引入路由规则
+import store from '@/store'
 
-// 使用插件，该指令需要在 VueRouter 创建前调用
+// 使用插件，该指令需要在 VueRouter 实例创建之前调用
 Vue.use(VueRouter)
+
 
 // 保存原 push 方法
 const originPush = VueRouter.prototype.push;
@@ -24,6 +26,7 @@ VueRouter.prototype.push = function (location, resolve, reject) {
     }
 }
 
+
 // 创建 VueRouter 实例
 const router = new VueRouter({
     routes,
@@ -33,5 +36,45 @@ const router = new VueRouter({
         return { y: 0 }
     }
 });
+
+
+/**
+ * @description: 全局前置守卫
+ * @param { to-即将进入的路由对象; from-正要离开的路由对象; next-放行函数 }
+ * @return { null }
+ */
+router.beforeEach((to, from, next) => {
+
+    let name = store.state.user.userInfo.name; // 用户名
+    let token = store.state.user.token; // token
+
+
+    if (token) { /* ---------- 1. 已登录 ---------- */
+
+        if (to.path == "/login") { // 1.1 去 login 页
+            next("/home");
+
+        } else { // 1.2 去其他页
+
+            if (name) { // 1.2.1 有 [用户名]
+                next()
+
+            } else { // 1.2.2 没有 [用户名]
+                store.dispatch("user/userInfo").then(() => {
+                    next();
+                }).catch(() => { // 获取数据失败 （ token 失效 ）
+                    store.dispatch("user/userLogout").then(() => {
+                        alert("已过期~ 请重新登陆~");
+                    }); // 将用户数据清除干净
+                    next('/login');
+                });
+            }
+        }
+
+    } else { /* ---------- 2. 未登录 ---------- */
+        next();
+    }
+});
+
 
 export default router
