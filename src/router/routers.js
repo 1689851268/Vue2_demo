@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-25 21:56:57
  * @LastEditors: superman
- * @LastEditTime: 2022-03-31 18:41:58
+ * @LastEditTime: 2022-04-01 16:11:31
  */
 
 // 引入路由组件
@@ -48,6 +48,16 @@ export default [{
     path: "/trade", // 结算页面
     name: "Trade",
     component: () => import('../pages/Trade'),
+    meta: { show: true }
+}, {
+    path: "/pay", // 支付页面
+    name: "Pay",
+    component: () => import('../pages/Pay'),
+    meta: { show: true }
+}, {
+    path: "/paysuccess", // 支付成功页面
+    name: "PaySuccess",
+    component: () => import('../pages/PaySuccess'),
     meta: { show: true }
 }, {
     path: '*',

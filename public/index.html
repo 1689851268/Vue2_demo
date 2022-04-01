@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:09
  * @LastEditors: superman
- * @LastEditTime: 2022-03-14 15:57:39
+ * @LastEditTime: 2022-04-01 15:32:47
 -->
 
 <!DOCTYPE html>
@@ -15,7 +15,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="stylesheet" href="<%= BASE_URL %>reset.css">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
+    <style>
+        /* 解决使用 element-ui 时的抖动问题 */
+        body {
+            padding-right: 0px !important;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <body>

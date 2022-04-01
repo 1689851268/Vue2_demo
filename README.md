@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:19
  * @LastEditors: superman
- * @LastEditTime: 2022-03-31 19:47:52
+ * @LastEditTime: 2022-04-01 15:38:12
 -->
 
 # 账号 & 密码
@@ -22,6 +22,22 @@
 
 ## vue-router
 1. Vue2 支持 vue-router3，过高版本会有兼容问题：`npm i vue-router@3`
+
+
+## 使用 Element 时的抖动问题
+- 使用 MessageBox 组件时，每次弹窗出现，页面就会向左抖一下
+  其实是弹窗出现后，会多一个 element.style 的样式，我们只需要重置样式即可
+
+``` CSS
+body {
+    padding-right: 0px !important;
+    overflow: hidden;
+}
+```
+
+- 设置全局样式的方法：
+  1. 在 index.html 中设置
+  2. 创建 reset.css，在 App.vue 中引入
 
 
 

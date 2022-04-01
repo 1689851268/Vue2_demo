@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:09
  * @LastEditors: superman
- * @LastEditTime: 2022-03-26 10:45:55
+ * @LastEditTime: 2022-04-01 14:44:51
  */
 
 import Vue from 'vue'
@@ -33,12 +33,22 @@ import '@/mock/mockServe';
 // 引入 swiper 样式
 import "swiper/css/swiper.css";
 
+// 引入所有的接口
+import * as API from "@/api";
+
+// 引入 ElementUI 的 MessageBox
+import { MessageBox, Message } from 'element-ui';
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$message = Message;
+
 new Vue({
     render: h => h(App),
 
-    // 配置全局事件总线 $bus
+    // 配置全局事件总线 $bus & 全局 API 接口 $API
     beforeCreate() {
         Vue.prototype.$bus = this;
+        Vue.prototype.$API = API;
     },
 
     router, // 注册路由

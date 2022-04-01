@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-16 20:29:39
  * @LastEditors: superman
- * @LastEditTime: 2022-03-31 19:54:28
+ * @LastEditTime: 2022-04-01 15:54:33
  */
 
 import requests from "./request";
@@ -112,5 +112,27 @@ export const reqAddressInfo = () => requests({
 // 获取商品清单  URL: /api/order/auth/trade    GET
 export const reqOrderInfo = () => requests({
     url: "/order/auth/trade",
+    method: "GET"
+});
+
+
+// 提交订单  URL: /api/order/auth/submitOrder?tradeNo={tradeNo}    POST
+export const reqSubmitOrder = (tradeNo, data) => requests({
+    url: `/order/auth/submitOrder?tradeNo=${tradeNo}`,
+    data,
+    method: "POST"
+});
+
+
+// 支付信息  URL: /api/payment/weixin/createNative/{orderId}    GET
+export const reqPayInfo = (orderId) => requests({
+    url: `/payment/weixin/createNative/${orderId}`,
+    method: "GET"
+});
+
+
+// 获取订单支付状态  URL: /api/payment/weixin/queryPayStatus/{orderId}    GET
+export const reqPayStatus = (orderId) => requests({
+    url: `/payment/weixin/queryPayStatus/${orderId}`,
     method: "GET"
 });

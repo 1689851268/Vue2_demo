@@ -107,7 +107,7 @@
         </div>
 
         <div class="sub clearFix">
-            <router-link class="subBtn" to="/pay">提交订单</router-link>
+            <a class="subBtn" @click="submitOrder">提交订单</a>
         </div>
     </div>
 </template>
@@ -120,6 +120,7 @@ export default {
     data() {
         return {
             msg: "",
+            orderId: "",
         };
     },
     computed: {
@@ -132,9 +133,39 @@ export default {
         },
     },
     methods: {
+        // 修改默认地址
         changeDefault(address) {
             this.addressList.forEach((ele) => (ele.isDefault = 0));
             address.isDefault = 1;
+        },
+        // 提交订单
+        submitOrder() {
+            let { tradeNo } = this.orderInfo; // 交易编码
+            let data = {
+                consignee: this.userDefaultAddress.consignee, // 姓名
+                consigneeTel: this.userDefaultAddress.phoneNum, // 手机号
+                deliveryAddress: this.userDefaultAddress.fullAddress, // 地址
+                paymentWay: "ONLINE", // 支付方式
+                orderComment: this.msg, // 留言
+                orderDetailList: this.orderInfo.detailArrayList, // 下单商品
+            };
+            this.$API
+                .reqSubmitOrder(tradeNo, data)
+                .then((res) => {
+                    console.log("res", res);
+                    if (res.code == 200) {
+                        this.orderId = res.data;
+                        this.$router.push({
+                            name: "Pay",
+                            query: { orderId: this.orderId },
+                        });
+                    } else if (res.code == 201) {
+                        alert("请勿重复提交订单~");
+                    }
+                })
+                .catch((err) => {
+                    console.log("err", err);
+                });
         },
     },
     /* 挂载完毕后，获取地址数据 */
