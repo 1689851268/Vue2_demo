@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 16:26:10
  * @LastEditors: superman
- * @LastEditTime: 2022-03-31 19:36:38
+ * @LastEditTime: 2022-04-09 01:36:09
  */
 
 import Vue from 'vue'
@@ -13,7 +13,6 @@ import store from '@/store'
 
 // 使用插件，该指令需要在 VueRouter 实例创建之前调用
 Vue.use(VueRouter)
-
 
 // 保存原 push 方法
 const originPush = VueRouter.prototype.push;
@@ -32,8 +31,9 @@ const router = new VueRouter({
     routes,
     // 滚动行为
     scrollBehavior(to, from, savedPosition) {
-        // { y: 0 } 表示滚动条在最上方
-        return { y: 0 }
+        // y:0 表示滚动条在最上方
+        // behavior:'smooth' 可以让它变得更流畅
+        return { y: 0, behavior: 'smooth' }
     }
 });
 

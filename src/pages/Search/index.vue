@@ -3,13 +3,12 @@
  * @Author: superman
  * @Date: 2022-03-26 10:12:24
  * @LastEditors: superman
- * @LastEditTime: 2022-03-26 11:00:17
+ * @LastEditTime: 2022-04-09 01:22:04
 -->
 
 <template>
     <div>
         <TypeNav />
-
         <div class="main">
             <div class="py-container">
                 <!-- 面包屑 -->
@@ -141,13 +140,15 @@
                                                 sui-btn
                                                 btn-bordered btn-danger
                                             "
-                                            >加入购物车</a
                                         >
+                                            加入购物车
+                                        </a>
                                         <a
                                             href="javascript:void(0);"
                                             class="sui-btn btn-bordered"
-                                            >收藏</a
                                         >
+                                            收藏
+                                        </a>
                                     </div>
                                 </div>
                             </li>
@@ -300,6 +301,7 @@ export default {
         getPageNo(pageNo) {
             this.searchParams.pageNo = pageNo;
             this.getData();
+            window.scrollTo({ top: 0, behavior: "smooth" });
         },
     },
     watch: {

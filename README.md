@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:19
  * @LastEditors: superman
- * @LastEditTime: 2022-04-01 15:38:12
+ * @LastEditTime: 2022-04-09 01:22:45
 -->
 
 # 账号 & 密码
@@ -38,6 +38,17 @@ body {
 - 设置全局样式的方法：
   1. 在 index.html 中设置
   2. 创建 reset.css，在 App.vue 中引入
+
+
+## 设置二级路由后报错
+报错信息：*Failed to mount component: template or render function not defined*
+设置组件时，如果需要设置懒加载，应设置成 ：component: () => import("../pages/Center/GroupOrder"),
+这是一个箭头函数！！！不是直接通过 import 引入
+
+
+## CSS 引入报错
+报错信息：*Refused to apply style from ‘http://localhost:8080/iconfont.css‘ because its MIME type (‘text/html‘)*
+在 reset.css 里面有一句 `@import "./iconfont.css";`，但是并没有这个文件，所以报错 ~
 
 
 
@@ -188,18 +199,34 @@ mock 数据，是一些模拟数据，不会真的发送请求到服务器
 
 
 
-# Vue 的滚动行为
-设置滚动行为用 scrollBehavior
+# 滚动行为
+
+## Vue 的滚动行为
+- 跳转到新路由时滚动
+在创建 VueRouter 时设置 scrollBehavior 方法
 ```js
 // 滚动行为
 scrollBehavior(to, from, savedPosition) {
-    // { y: 0 } 表示滚动条在最上方
-    return { y: 0 }
+    // y:0 表示滚动条在最上方
+    // behavior:'smooth' 可以让它变得更流畅
+    return { y: 0, behavior: 'smooth' }
 }
 ```
 
 
+## JS 的滚动行为
+1. scrollTo
+``` js
+element.scrollTo(0, 0);
 
+window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+});
+```
+
+2. 
 
 
 # 游客用户 id

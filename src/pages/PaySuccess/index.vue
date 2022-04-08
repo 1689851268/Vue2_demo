@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-04-01 16:10:07
  * @LastEditors: superman
- * @LastEditTime: 2022-04-01 16:10:12
+ * @LastEditTime: 2022-04-08 20:48:34
 -->
 
 <template>
@@ -15,12 +15,12 @@
             </h3>
             <div class="paydetail">
                 <p class="button">
-                    <router-link class="btn-look" to="/center"
-                        >查看订单</router-link
-                    >
-                    <router-link class="btn-goshop" to="/"
-                        >继续购物</router-link
-                    >
+                    <router-link class="btn-look" :to="{ name: 'MyOrder' }">
+                        查看订单
+                    </router-link>
+                    <router-link class="btn-goshop" to="/home">
+                        继续购物
+                    </router-link>
                 </p>
             </div>
         </div>

@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-25 21:56:57
  * @LastEditors: superman
- * @LastEditTime: 2022-04-01 16:11:31
+ * @LastEditTime: 2022-04-08 20:51:07
  */
 
 // 引入路由组件
@@ -59,6 +59,22 @@ export default [{
     name: "PaySuccess",
     component: () => import('../pages/PaySuccess'),
     meta: { show: true }
+}, {
+    path: "/center", // 个人中心页面
+    component: () => import('../pages/Center'),
+    meta: { show: true },
+    // 设置默认子路由后，当前路由不能设置 name 属性
+    children: [{
+        path: '', // 子组件的 path 设置为空字符串，表示默认显示该组件
+        name: "MyOrder",
+        component: () => import("../pages/Center/MyOrder"),
+        meta: { show: true },
+    }, {
+        path: 'grouporder',
+        name: "GroupOrder",
+        component: () => import("../pages/Center/GroupOrder"),
+        meta: { show: true },
+    }]
 }, {
     path: '*',
     redirect: '/home' // 重定向

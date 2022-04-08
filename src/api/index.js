@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-16 20:29:39
  * @LastEditors: superman
- * @LastEditTime: 2022-04-01 15:54:33
+ * @LastEditTime: 2022-04-08 21:10:13
  */
 
 import requests from "./request";
@@ -134,5 +134,12 @@ export const reqPayInfo = (orderId) => requests({
 // 获取订单支付状态  URL: /api/payment/weixin/queryPayStatus/{orderId}    GET
 export const reqPayStatus = (orderId) => requests({
     url: `/payment/weixin/queryPayStatus/${orderId}`,
+    method: "GET"
+});
+
+
+// 获取 个人中心-我的订单 的数据  URL：/api/order/auth/{page}/{limit}    GET
+export const reqMyOrderList = (page, limit) => requests({
+    url: `/order/auth/${page}/${limit}`,
     method: "GET"
 });
