@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:19
  * @LastEditors: superman
- * @LastEditTime: 2022-04-09 01:22:45
+ * @LastEditTime: 2022-04-09 15:53:20
 -->
 
 # 账号 & 密码
@@ -215,9 +215,9 @@ scrollBehavior(to, from, savedPosition) {
 
 
 ## JS 的滚动行为
-1. scrollTo
+1. element.scrollTo() - 滚动到指定位置
 ``` js
-element.scrollTo(0, 0);
+window.scrollTo(0, 0);
 
 window.scrollTo({
     top: 0,
@@ -226,7 +226,30 @@ window.scrollTo({
 });
 ```
 
-2. 
+2. element.scrollBy() - 滚动指定距离
+``` js
+window.scrollBy(0, 100);
+
+window.scrollBy({
+    top: 100,
+    left: 0,
+    behavior: 'smooth'
+});
+```
+
+3. element.scrollIntoView()
+``` js
+window.scrollIntoView(); // 元素顶端与可视区顶端对齐
+
+window.scrollIntoView({ 
+    inline: "nearest",
+    block: "start",
+    behavior: "smooth"
+});
+```
+
+
+
 
 
 # 游客用户 id
@@ -249,4 +272,29 @@ window.scrollTo({
 
 
 # 导航守卫
-现象：用户已登录的话，不能再进入登陆页面
+- 全局导航守卫
+  用户已登录的话，不能进入登陆注册页面(Login、Register)
+  用户未登录的话，不能进入交易页面(Trade)、支付页面(Pay、PaySuccess)、个人中心(Center)，重定向到登陆(Login)
+
+- 路由独享守卫
+  Trade 只能从 ShopCart 进入、Pay 只能从 Trade 进入、PaySuccess 只能从 Pay 进入
+
+
+
+
+
+# 图片懒加载
+1. 安装 lazyload：npm i vue-lazyload
+2. 到入口文件 main.js 配置插件
+```js
+// 引入 lazyload
+import VueLazyload from 'vue-lazyload';
+import defaultPic from "@/assets/defaultPic.jpg"; // [图片] 和 [JSON] 都是默认导出的，可以直接导入使用
+Vue.use(VueLazyload, {
+    loading: defaultPic // 懒加载默认图片
+});
+```
+3. 在组件中使用插件：将 src 换成 lazy
+```html
+<img v-lazy="good.defaultImg" />
+```

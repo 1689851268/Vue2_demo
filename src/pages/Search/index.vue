@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-26 10:12:24
  * @LastEditors: superman
- * @LastEditTime: 2022-04-09 01:22:04
+ * @LastEditTime: 2022-04-09 15:52:03
 -->
 
 <template>
@@ -105,7 +105,7 @@
                                     <div class="p-img">
                                         <!-- 跳转到详情页，传入商品的 id 作为 params 参数 -->
                                         <router-link :to="`/detail/${good.id}`">
-                                            <img :src="good.defaultImg" />
+                                            <img v-lazy="good.defaultImg" />
                                         </router-link>
                                     </div>
                                     <div class="price">

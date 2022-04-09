@@ -110,7 +110,11 @@ export default {
                 this.$store
                     .dispatch("user/userLogin", { phone, password })
                     .then(() => {
-                        this.$router.push("/home");
+                        // 如果有 query 参数，则跳转到指定路由
+                        // 否则跳转到 Home 页面
+                        this.$router.push({
+                            name: this.$route.query.redirect || "Home",
+                        });
                     })
                     .catch((err) => {
                         alert(err);

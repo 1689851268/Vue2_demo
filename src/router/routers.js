@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-25 21:56:57
  * @LastEditors: superman
- * @LastEditTime: 2022-04-08 20:51:07
+ * @LastEditTime: 2022-04-09 15:19:59
  */
 
 // 引入路由组件
@@ -48,17 +48,31 @@ export default [{
     path: "/trade", // 结算页面
     name: "Trade",
     component: () => import('../pages/Trade'),
-    meta: { show: true }
+    meta: { show: true },
+    // 路由独享守卫
+    beforeEnter: (to, from, next) => {
+        if (from.name == "ShopCart") {
+            next();
+        } else {
+            next(false);
+        }
+    }
 }, {
     path: "/pay", // 支付页面
     name: "Pay",
     component: () => import('../pages/Pay'),
-    meta: { show: true }
+    meta: { show: true },
+    beforeEnter: (to, from, next) => {
+        from.name == "Trade" ? next() : next(false);
+    }
 }, {
     path: "/paysuccess", // 支付成功页面
     name: "PaySuccess",
     component: () => import('../pages/PaySuccess'),
-    meta: { show: true }
+    meta: { show: true },
+    beforeEnter: (to, from, next) => {
+        from.name == "Pay" ? next() : next(false);
+    }
 }, {
     path: "/center", // 个人中心页面
     component: () => import('../pages/Center'),

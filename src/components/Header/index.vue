@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-26 10:12:24
  * @LastEditors: superman
- * @LastEditTime: 2022-03-31 14:45:42
+ * @LastEditTime: 2022-04-09 14:29:38
 -->
 
 <template>
@@ -31,8 +31,12 @@
                     </p>
                 </div>
                 <div class="typeList">
-                    <!-- <router-link to="/center/myorder">我的订单</router-link>
-                    <router-link to="/shopcart">我的购物车</router-link>-->
+                    <router-link :to="{ name: 'MyOrder' }">
+                        我的订单
+                    </router-link>
+                    <router-link :to="{ name: 'ShopCart' }">
+                        我的购物车
+                    </router-link>
                     <a href="###">我的尚品汇</a>
                     <a href="###">尚品汇会员</a>
                     <a href="###">企业采购</a>

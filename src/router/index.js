@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 16:26:10
  * @LastEditors: superman
- * @LastEditTime: 2022-04-09 01:36:09
+ * @LastEditTime: 2022-04-09 14:59:36
  */
 
 import Vue from 'vue'
@@ -48,7 +48,9 @@ router.beforeEach((to, from, next) => {
     let token = store.state.user.token; // token
 
     if (token) { /* ---------- 1. 已登录 ---------- */
-        if (to.path == "/login") { // 1.1 去 login 页
+        // 不能去 Login、Register
+        let prohibitToJump = ["Login", "Register"];
+        if (prohibitToJump.includes(to.name)) { // 1.1 去 login 页
             next("/home");
         } else { // 1.2 去其他页
             if (name) { // 1.2.1 有 [用户名]
@@ -63,7 +65,13 @@ router.beforeEach((to, from, next) => {
             }
         }
     } else { /* ---------- 2. 未登录 ---------- */
-        next();
+        // 不能去交易页面(Trade)、支付页面(Pay、PaySuccess)、个人中心(Center)，重定向到登陆(Login)
+        let prohibitToJump = ["MyOrder", "GroupOrder", "PaySuccess", "Pay", "Trade"]
+        if (prohibitToJump.includes(to.name)) {
+            next('/login?redirect=' + to.name); // 跳转到 Login 页面，并记录原本想进入的页面
+        } else {
+            next();
+        }
     }
 });
 

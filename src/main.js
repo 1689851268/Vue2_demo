@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:09
  * @LastEditors: superman
- * @LastEditTime: 2022-04-01 14:44:51
+ * @LastEditTime: 2022-04-09 15:50:19
  */
 
 import Vue from 'vue'
@@ -41,6 +41,13 @@ import { MessageBox, Message } from 'element-ui';
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
+
+// 引入 lazyload
+import VueLazyload from 'vue-lazyload';
+import defaultPic from "@/assets/defaultPic.jpg"; // [图片] 和 [JSON] 都是默认导出的，可以直接导入使用
+Vue.use(VueLazyload, {
+    loading: defaultPic // 懒加载默认图片
+});
 
 new Vue({
     render: h => h(App),
