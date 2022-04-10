@@ -3,16 +3,14 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:09
  * @LastEditors: superman
- * @LastEditTime: 2022-03-17 18:29:48
+ * @LastEditTime: 2022-04-10 23:46:41
  */
 
-const {
-    defineConfig
-} = require('@vue/cli-service')
+const { defineConfig } = require('@vue/cli-service')
 
 module.exports = defineConfig({
-    transpileDependencies: true,
     lintOnSave: false,
+    productionSourceMap: false,
     devServer: {
         proxy: {
             '/api': {
