@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:19
  * @LastEditors: superman
- * @LastEditTime: 2022-04-09 15:53:20
+ * @LastEditTime: 2022-04-10 20:24:42
 -->
 
 # 账号 & 密码
@@ -285,7 +285,7 @@ window.scrollIntoView({
 
 # 图片懒加载
 1. 安装 lazyload：npm i vue-lazyload
-2. 到入口文件 main.js 配置插件
+2. 到入口l文件 main.js 配置插件
 ```js
 // 引入 lazyload
 import VueLazyload from 'vue-lazyload';

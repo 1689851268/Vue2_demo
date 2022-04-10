@@ -3,7 +3,7 @@
  * @Author: superman
  * @Date: 2022-03-14 13:58:09
  * @LastEditors: superman
- * @LastEditTime: 2022-04-09 15:50:19
+ * @LastEditTime: 2022-04-10 19:25:48
  */
 
 import Vue from 'vue'
@@ -48,6 +48,9 @@ import defaultPic from "@/assets/defaultPic.jpg"; // [图片] 和 [JSON] 都是�
 Vue.use(VueLazyload, {
     loading: defaultPic // 懒加载默认图片
 });
+
+// 引入 vee-validate
+import "@/plugins/validate.js";
 
 new Vue({
     render: h => h(App),
